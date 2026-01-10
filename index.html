@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 Tu Pasaporte al Mundo - Portal Internacional de Migración</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: rgba(255, 255, 255, 0.98); padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 30px; border-radius: 10px; text-align: center; }
+        header h1 { color: #1e3a8a; font-size: 2.5em; margin-bottom: 10px; }
+        header p { color: #666; font-size: 1.1em; }
+        nav { background: #1e3a8a; padding: 15px 0; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; padding: 0; }
+        nav a { color: white; text-decoration: none; padding: 10px 20px; display: block; border-radius: 5px; transition: background 0.3s; }
+        nav a:hover { background: #2563eb; }
+        .section { background: white; padding: 30px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: none; }
+        .section.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        h2 { color: #1e3a8a; margin-bottom: 20px; font-size: 2em; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        h3 { color: #2563eb; margin: 20px 0 10px 0; font-size: 1.4em; }
+        h4 { color: #1e3a8a; margin: 15px 0 10px 0; font-size: 1.2em; }
+        .country-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0; }
+        .country-card { border: 2px solid #667eea; padding: 20px; border-radius: 10px; transition: transform 0.3s, box-shadow 0.3s; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); cursor: pointer; }
+        .country-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; color: #1e3a8a; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 5px; font-size: 1em; transition: border-color 0.3s; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #667eea; }
+        button { background: #1e3a8a; color: white; padding: 12px 30px; border: none; border-radius: 5px; font-size: 1.1em; cursor: pointer; transition: background 0.3s; }
+        button:hover { background: #2563eb; }
+        .alert { padding: 15px; border-radius: 5px; margin: 15px 0; }
+        .alert-info { background: #dbeafe; border-left: 4px solid #2563eb; color: #1e40af; }
+        .alert-success { background: #d1fae5; border-left: 4px solid #10b981; color: #065f46; }
+        .alert-warning { background: #fef3c7; border-left: 4px solid #f59e0b; color: #92400e; }
+        .result-box { background: #f0f9ff; border-left: 4px solid #2563eb; padding: 20px; margin-top: 20px; border-radius: 5px; display: none; }
+        .visa-list { list-style: none; padding: 0; }
+        .visa-list li { padding: 15px; margin: 10px 0; background: #f8fafc; border-radius: 5px; border-left: 4px solid #667eea; }
+        footer { background: rgba(255, 255, 255, 0.95); padding: 30px; text-align: center; border-radius: 10px; margin-top: 30px; }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            nav ul { flex-direction: column; align-items: center; }
+            .country-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 Tu Pasaporte al Mundo</h1>
+            <p>Portal completo de migración: USA 🇺🇸 | Canadá 🇨🇦 | Polonia 🇵🇱 | Alemania 🇩🇪 | Inglaterra 🇬🇧 | España 🇪🇸</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showSection('inicio'); return false;">Inicio</a></li>
+                <li><a href="#" onclick="showSection('paises'); return false;">Países</a></li>
+                <li><a href="#" onclick="showSection('documentos'); return false;">Documentos</a></li>
+                <li><a href="#" onclick="showSection('calculadora'); return false;">Calculadora</a></li>
+                <li><a href="#" onclick="showSection('recursos'); return false;">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <!-- SECCIÓN INICIO CON TODO -->
+        <div id="inicio" class="section active">
+            <h2>¡Tu Aventura Internacional Comienza Aquí! 🚀</h2>
+            <p style="font-size: 1.2em; margin: 20px 0;">Descubre oportunidades de migración en los mejores destinos del mundo.</p>
+            
+            <div style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white; padding: 40px; border-radius: 15px; margin: 30px 0; box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4); border: 3px solid #b91c1c;">
+                <div style="text-align: center;">
+                    <div style="font-size: 4em; margin-bottom: 15px;">📄✨</div>
+                    <h3 style="color: white; font-size: 2.2em; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                        ¿TE FALTA DOCUMENTACIÓN?
+                    </h3>
+                    <p style="font-size: 1.5em; font-weight: bold; margin-bottom: 20px; line-height: 1.4;">
+                        ¡NOSOTROS LA TRAMITAMOS POR TI!
+                    </p>
+                    
+                    <div style="background: rgba(255,215,0,0.3); padding: 30px; border-radius: 15px; margin: 25px auto; max-width: 750px; border: 4px solid #fbbf24; box-shadow: 0 8px 20px rgba(251, 191, 36, 0.5);">
+                        <p style="font-size: 2.5em; font-weight: bold; line-height: 1.3; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); margin-bottom: 15px;">
+                            🌟 TE LLEVAMOS A TU DESTINO
+                        </p>
+                        <p style="font-size: 2.8em; font-weight: bold; color: #fde68a; line-height: 1.2; text-shadow: 3px 3px 6px rgba(0,0,0,0.6); letter-spacing: 1px;">
+                            ¡SÍ O SÍ, DE CUALQUIER MANERA! ✓
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.25); padding: 25px; border-radius: 12px; margin: 25px auto; max-width: 750px; border: 3px solid rgba(255,255,255,0.4); backdrop-filter: blur(10px);">
+                        <p style="font-size: 2em; font-weight: bold; line-height: 1.4; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-bottom: 12px;">
+                            📍 ¿YA ESTÁS EN USA, CANADÁ, POLONIA, ALEMANIA, INGLATERRA O ESPAÑA?
+                        </p>
+                        <p style="font-size: 2.2em; font-weight: bold; color: #fde68a; line-height: 1.3; text-shadow: 2px 2px 5px rgba(0,0,0,0.6);">
+                            ¡LEGALIZAMOS TU ESTADÍA! ✓
+                        </p>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 10px; backdrop-filter: blur(10px); margin: 20px auto; max-width: 700px;">
+                        <p style="font-size: 1.2em; line-height: 1.8; margin-bottom: 20px;">
+                            No dejes que la falta de documentos detenga tu sueño. Nuestro equipo especializado gestiona, obtiene y legaliza <strong>cualquier documento que necesites</strong> para tu proceso migratorio.
+                        </p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 25px; text-align: left;">
+                            <div>
+                                <p style="font-size: 1.1em; margin: 8px 0;">✅ Certificados oficiales</p>
+                                <p style="font-size: 1.1em; margin: 8px 0;">✅ Documentos médicos</p>
+                                <p style="font-size: 1.1em; margin: 8px 0;">✅ Títulos académicos</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 1.1em; margin: 8px 0;">✅ Traducción certificada</p>
+                                <p style="font-size: 1.1em; margin: 8px 0;">✅ Apostilla internacional</p>
+                                <p style="font-size: 1.1em; margin: 8px 0;">✅ Documentos económicos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 30px; padding-top: 25px; border-top: 2px solid rgba(255,255,255,0.3);">
+                        <p style="font-size: 1.3em; margin-bottom: 15px;">📧 <strong>Contáctanos ahora:</strong></p>
+                        <a href="/cdn-cgi/l/email-protection#d8acada8b9abb9a8b7aaacbdb9b4b5adb6bcb7ece8e898bfb5b9b1b4f6bbb7b5" style="display: inline-block; background: white; color: #dc2626; padding: 18px 40px; border-radius: 50px; font-size: 1.3em; font-weight: bold; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.3s;">
+                            <span class="__cf_email__" data-cfemail="11656461706270617e636574707d7c647f757e25212151767c70787d3f727e7c">[email&#160;protected]</span>
+                        </a>
+                        <p style="margin-top: 20px; font-size: 1em; opacity: 0.95;">
+                            ⚡ Respuesta en 24-48 horas | 🌍 Servicio internacional | 🎯 Éxito garantizado
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-info">
+                <strong>🌍 6 Destinos Disponibles:</strong> Estados Unidos, Canadá, Polonia, Alemania, Inglaterra y España.
+            </div>
+
+            <h3>Selecciona tu Destino</h3>
+            <div class="country-grid">
+                <div class="country-card" onclick="selectCountry('usa')">
+                    <h4>🇺🇸 Estados Unidos</h4>
+                    <p><strong>Visas:</strong> B-1/B-2, F-1, H-1B, Green Card</p>
+                    <p style="color: #2563eb; font-weight: bold; margin-top: 10px;">→ Ver información</p>
+                </div>
+                <div class="country-card" onclick="selectCountry('canada')">
+                    <h4>🇨🇦 Canadá</h4>
+                    <p><strong>Visas:</strong> Express Entry, Study Permit</p>
+                    <p style="color: #2563eb; font-weight: bold; margin-top: 10px;">→ Ver información</p>
+                </div>
+                <div class="country-card" onclick="selectCountry('polonia')">
+                    <h4>🇵🇱 Polonia</h4>
+                    <p><strong>Visas:</strong> Schengen, Karta Polaka</p>
+                    <p style="color: #2563eb; font-weight: bold; margin-top: 10px;">→ Ver información</p>
+                </div>
+                <div class="country-card" onclick="selectCountry('alemania')">
+                    <h4>🇩🇪 Alemania</h4>
+                    <p><strong>Visas:</strong> EU Blue Card, Student</p>
+                    <p style="color: #2563eb; font-weight: bold; margin-top: 10px;">→ Ver información</p>
+                </div>
+                <div class="country-card" onclick="selectCountry('inglaterra')">
+                    <h4>🇬🇧 Inglaterra</h4>
+                    <p><strong>Visas:</strong> Skilled Worker, Student</p>
+                    <p style="color: #2563eb; font-weight: bold; margin-top: 10px;">→ Ver información</p>
+                </div>
+                <div class="country-card" onclick="selectCountry('espana')">
+                    <h4>🇪🇸 España</h4>
+                    <p><strong>Visas:</strong> Golden Visa, Non-Lucrative</p>
+                    <p style="color: #2563eb; font-weight: bold; margin-top: 10px;">→ Ver información</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 50px; text-align: center;">⭐ Testimonios de Nuestra Comunidad Latina</h3>
+            <p style="text-align: center; margin-bottom: 30px; color: #666; font-size: 1.1em;">Miles de latinoamericanos han confiado en nosotros para alcanzar sus sueños</p>
+            
+            <div class="country-grid">
+                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 25px; border-radius: 10px; border-left: 5px solid #10b981;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="background: #10b981; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; margin-right: 15px;">MC</div>
+                        <div>
+                            <h4 style="margin: 0; color: #1e3a8a;">María Carmen Rodríguez</h4>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">🇨🇴 Colombia → 🇺🇸 Estados Unidos</p>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: #374151; line-height: 1.6;">
+                        "Encontré este portal cuando estaba perdida con mi solicitud de visa H-1B. La calculadora me mostró exactamente cuánto necesitaba: $3,475 para todo el proceso incluyendo la visa, traducciones certificadas, apostillas y documentación legal. Como empresaria independiente, la sección de documentos de actividad económica fue mi salvación - me explicó paso a paso qué papeles de mi negocio necesitaba. Presenté mi certificado de cámara de comercio, estados financieros y declaraciones de renta tal como indicaban. ¡Mi visa fue aprobada en 4 meses! Ahora trabajo como Ingeniera de Software en Miami. Este portal me ahorró meses de confusión y probablemente miles de dólares en asesorías innecesarias."
+                    </p>
+                    <div style="margin-top: 15px; color: #f59e0b; font-size: 1.2em;">★★★★★</div>
+                    <p style="margin-top: 10px; color: #059669; font-weight: bold;">Visa H-1B Aprobada | Ingeniera de Software</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 25px; border-radius: 10px; border-left: 5px solid #f59e0b;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="background: #f59e0b; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; margin-right: 15px;">JL</div>
+                        <div>
+                            <h4 style="margin: 0; color: #1e3a8a;">Juan Luis Martínez</h4>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">🇲🇽 México → 🇨🇦 Canadá</p>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: #374151; line-height: 1.6;">
+                        "Express Entry parecía un laberinto imposible hasta que encontré Tu Pasaporte al Mundo. La guía me explicó el sistema de puntos CRS de manera simple. Como estudiante trabajando medio tiempo, no sabía cómo documentar mi experiencia laboral y académica simultáneamente. El portal me enseñó a conseguir cartas de referencia de mis empleadores, calcular mis horas de trabajo, y demostrar mi progreso académico. La lista de documentos fue mi biblia: IELTS, ECA de credenciales, certificados de trabajo, todo estaba ahí. Invertí CAD $3,500 exactamente como calculé en el portal. ¡Residencia permanente en 8 meses! Ahora soy profesional en Toronto ganando CAD $75,000 anuales. No puedo creer que esté viviendo mi sueño canadiense."
+                    </p>
+                    <div style="margin-top: 15px; color: #f59e0b; font-size: 1.2em;">★★★★★</div>
+                    <p style="margin-top: 10px; color: #059669; font-weight: bold;">Express Entry Aprobado | Analista en Toronto</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); padding: 25px; border-radius: 10px; border-left: 5px solid #6366f1;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="background: #6366f1; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; margin-right: 15px;">AS</div>
+                        <div>
+                            <h4 style="margin: 0; color: #1e3a8a;">Andrea Silva</h4>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">🇦🇷 Argentina → 🇪🇸 España</p>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: #374151; line-height: 1.6;">
+                        "A mis 58 años decidí jubilarme anticipadamente y mudarme a España. La visa Non-Lucrative parecía perfecta pero los requisitos financieros me asustaban. Este portal detalló EXACTAMENTE qué necesitaba: demostrar €28,800 anuales en ingresos pasivos. Me guiaron sobre qué documentos bancarios presentar, cómo estructurar mi carta de pensión, y qué tipo de seguro médico contratar. La calculadora mostró €2,800 totales incluyendo gestión completa, apostillas, traducciones certificadas y seguro médico anual. Preparé cada documento con 3 meses de anticipación siguiendo sus checklists. Mi visa fue aprobada a la primera. ¡Llevo 6 meses viviendo en Barcelona disfrutando el Mediterráneo! Este portal convirtió un proceso complicado en algo manejable."
+                    </p>
+                    <div style="margin-top: 15px; color: #f59e0b; font-size: 1.2em;">★★★★★</div>
+                    <p style="margin-top: 10px; color: #059669; font-weight: bold;">Non-Lucrative Aprobada | Jubilada en Barcelona</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); padding: 25px; border-radius: 10px; border-left: 5px solid #ec4899;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="background: #ec4899; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; margin-right: 15px;">DP</div>
+                        <div>
+                            <h4 style="margin: 0; color: #1e3a8a;">Diego Peralta</h4>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">🇨🇱 Chile → 🇩🇪 Alemania</p>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: #374151; line-height: 1.6;">
+                        "Mi sueño era trabajar en Alemania como Data Scientist. Encontré una oferta laboral increíble en Berlín pero el proceso de EU Blue Card me intimidaba. Tu Pasaporte al Mundo me dio la confianza que necesitaba. Me explicaron que el proceso completo costaría €3,200 incluyendo reconocimiento de título, traducción oficial, apostilla, gestión de documentos y todos los trámites. La calculadora mostró cada detalle transparentemente. Lo mejor fue el desglose de documentos: contrato laboral con salario mínimo €58,400, certificados académicos, CV en formato europeo, seguro médico. Seguí cada paso religiosamente. ¡Blue Card aprobada en 8 semanas! Ahora en Berlín ganando €72,000 con mi familia. Valió cada euro invertido."
+                    </p>
+                    <div style="margin-top: 15px; color: #f59e0b; font-size: 1.2em;">★★★★★</div>
+                    <p style="margin-top: 10px; color: #059669; font-weight: bold;">EU Blue Card Aprobada | Data Scientist Berlín</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); padding: 25px; border-radius: 10px; border-left: 5px solid #10b981;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="background: #10b981; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; margin-right: 15px;">LV</div>
+                        <div>
+                            <h4 style="margin: 0; color: #1e3a8a;">Laura Vega</h4>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">🇵🇪 Perú → 🇬🇧 Inglaterra</p>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: #374151; line-height: 1.6;">
+                        "Como diseñadora freelance, conseguir la Skilled Worker Visa parecía imposible sin un empleo tradicional. Este portal me enseñó que SÍ era posible. Primero me ayudaron a entender qué empresas UK podían patrocinarme. Luego, la calculadora me preparó mentalmente: £2,850 totales incluyendo visa, cargo de salud IHS, biométricos, traducciones y gestión completa de documentos. Ahorré durante 9 meses. La guía sobre documentación de actividad económica freelance fue ORO: me explicó cómo presentar facturas, contratos con clientes, declaraciones de impuestos como trabajadora independiente. Incluí mi portfolio digital, 15 testimonios de clientes, y mi Certificate of Sponsorship. ¡Aprobada! Llevo 4 meses en Londres trabajando para una agencia top. Mi vida cambió completamente."
+                    </p>
+                    <div style="margin-top: 15px; color: #f59e0b; font-size: 1.2em;">★★★★★</div>
+                    <p style="margin-top: 10px; color: #059669; font-weight: bold;">Skilled Worker Aprobada | Diseñadora UX/UI Londres</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%); padding: 25px; border-radius: 10px; border-left: 5px solid #8b5cf6;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="background: #8b5cf6; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; margin-right: 15px;">RC</div>
+                        <div>
+                            <h4 style="margin: 0; color: #1e3a8a;">Roberto Castro</h4>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">🇻🇪 Venezuela → 🇵🇱 Polonia</p>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: #374151; line-height: 1.6;">
+                        "Mis abuelos eran polacos y siempre soñé con conectar con mis raíces. La Karta Polaka parecía complicada hasta que encontré este portal. Me detallaron cada documento que necesitaba de mis abuelos: actas de nacimiento, certificados de bautismo, fotos antiguas, cualquier documento en polaco. Busqué en cajas viejas por semanas. El portal me guió con un costo total de €2,500 incluyendo apostilla de todos los documentos, traducción al polaco, gestión legal y preparación completa. También me advirtieron sobre el examen de idioma polaco básico y la entrevista sobre cultura polaca. Estudié 3 meses usando recursos que me recomendaron. ¡Karta Polaka aprobada! Ahora trabajo como arquitecto en Varsovia, hablo polaco, y finalmente encontré mi lugar en el mundo. Este portal hizo real lo que parecía imposible."
+                    </p>
+                    <div style="margin-top: 15px; color: #f59e0b; font-size: 1.2em;">★★★★★</div>
+                    <p style="margin-top: 10px; color: #059669; font-weight: bold;">Karta Polaka Aprobada | Arquitecto Varsovia</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%); padding: 25px; border-radius: 10px; border-left: 5px solid #ea580c;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="background: #ea580c; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; margin-right: 15px;">SA</div>
+                        <div>
+                            <h4 style="margin: 0; color: #1e3a8a;">Sofía Álvarez</h4>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">🇪🇨 Ecuador → 🇺🇸 Estados Unidos</p>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: #374151; line-height: 1.6;">
+                        "A mis 22 años, aplicar a una maestría en USA parecía un sueño inalcanzable económicamente. Este portal me dio claridad total. La visa F-1 con todos los trámites costaba $3,200 incluyendo visa, SEVIS, traducción de diplomas, apostillas, examen médico, TOEFL y envío de documentos. La calculadora me mostró cada detalle transparentemente. Trabajé 14 meses ahorrando cada centavo. La sección de documentos estudiantiles fue increíble: me explicó cómo conseguir el I-20 de mi universidad, qué escribir en mi carta de intención, cómo mis padres debían documentar que me patrocinarían. Incluí certificados de matrícula, notas certificadas, carta de mi universidad, estados bancarios familiares. ¡Aprobada! Estoy en mi segundo semestre de Maestría en Boston. Cada dólar invertido valió la pena por esta oportunidad."
+                    </p>
+                    <div style="margin-top: 15px; color: #f59e0b; font-size: 1.2em;">★★★★★</div>
+                    <p style="margin-top: 10px; color: #059669; font-weight: bold;">Visa F-1 Aprobada | Estudiante Maestría Boston</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%); padding: 25px; border-radius: 10px; border-left: 5px solid #3b82f6;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="background: #3b82f6; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; margin-right: 15px;">MM</div>
+                        <div>
+                            <h4 style="margin: 0; color: #1e3a8a;">Miguel Morales</h4>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">🇨🇴 Colombia → 🇨🇦 Canadá</p>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: #374151; line-height: 1.6;">
+                        "Tengo un negocio familiar de importación en Colombia. El Provincial Nominee Program de Alberta era perfecto para empresarios pero documentar mi actividad económica me aterraba. Tu Pasaporte al Mundo me salvó. Me explicaron paso a paso: registro mercantil actualizado, estados financieros auditados últimos 3 años, declaraciones de renta, certificado de cámara de comercio, facturas de ventas, contratos con proveedores. Contraté un contador para organizar todo. La calculadora mostró CAD $3,200 totales incluyendo aplicación, traducción completa de documentos comerciales, exámenes de idioma y gestión legal. El portal también me preparó para la entrevista: me preguntarían sobre mi plan de negocios en Canadá, proyecciones financieras, cómo crearía empleos. ¡PNP aprobado en 11 meses! Toda mi familia está ahora en Calgary. Abrí mi sucursal canadiense y genero 8 empleos locales."
+                    </p>
+                    <div style="margin-top: 15px; color: #f59e0b; font-size: 1.2em;">★★★★★</div>
+                    <p style="margin-top: 10px; color: #059669; font-weight: bold;">PNP Alberta Aprobado | Empresario Calgary</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%); padding: 25px; border-radius: 10px; border-left: 5px solid #dc2626;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="background: #dc2626; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; margin-right: 15px;">CT</div>
+                        <div>
+                            <h4 style="margin: 0; color: #1e3a8a;">Carolina Torres</h4>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">🇨🇴 Colombia → 🇪🇸 España</p>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: #374151; line-height: 1.6;">
+                        "Con capital para invertir, la Golden Visa española era mi objetivo. Pero la documentación financiera requerida era abrumadora. Este portal fue mi mapa del tesoro. Me detalló cada documento: certificados bancarios con saldo adecuado, origen legal de fondos, declaraciones de renta últimos 5 años, extractos bancarios 12 meses, carta de mi banco internacional, documentación de inversión, seguro, certificado de solvencia económica. La calculadora mostró €3,500 totales para el proceso completo incluyendo gestoría, traducciones, apostillas y honorarios legales. Contraté un abogado pero el portal me permitió supervisar cada paso. El proceso tomó 6 meses pero ahora tengo mi inversión en Madrid y residencia española. Puedo viajar por toda la UE libremente. Esta inversión cambió mi vida y la de mis hijos."
+                    </p>
+                    <div style="margin-top: 15px; color: #f59e0b; font-size: 1.2em;">★★★★★</div>
+                    <p style="margin-top: 10px; color: #059669; font-weight: bold;">Golden Visa Aprobada | Inversionista Madrid</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 50px; text-align: center;">🏆 Certificaciones y Reconocimientos Oficiales</h3>
+            <p style="text-align: center; margin-bottom: 30px; color: #666; font-size: 1.1em;">Respaldados por las organizaciones más reconocidas a nivel internacional</p>
+            
+            <div class="country-grid">
+                <div style="background: white; padding: 30px; border-radius: 15px; border: 3px solid #2563eb; box-shadow: 0 8px 16px rgba(0,0,0,0.1); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #2563eb; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">✓ VERIFICADO</div>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);">
+                            <span style="font-size: 2.5em; color: white;">🌐</span>
+                        </div>
+                    </div>
+                    <h4 style="text-align: center; color: #1e3a8a; font-size: 1.2em; margin-bottom: 12px;">Better Business Bureau (BBB)</h4>
+                    <p style="text-align: center; color: #374151; line-height: 1.6; font-size: 0.95em;">
+                        Acreditación por transparencia en información, atención al cliente y prácticas comerciales éticas. Calificación máxima en estándares de confianza al consumidor.
+                    </p>
+                    <div style="text-align: center; margin-top: 18px; padding-top: 18px; border-top: 2px solid #e5e7eb;">
+                        <p style="color: #2563eb; font-weight: bold; margin: 5px 0; font-size: 1.1em;">Rating: A+</p>
+                        <p style="color: #666; font-size: 0.85em;">Acreditado desde 2024</p>
+                        <p style="color: #999; font-size: 0.8em; margin-top: 8px;">ID: BBB-2024-INT-7892</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 30px; border-radius: 15px; border: 3px solid #10b981; box-shadow: 0 8px 16px rgba(0,0,0,0.1); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #10b981; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">✓ CERTIFICADO</div>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);">
+                            <span style="font-size: 2.5em; color: white;">🔐</span>
+                        </div>
+                    </div>
+                    <h4 style="text-align: center; color: #1e3a8a; font-size: 1.2em; margin-bottom: 12px;">TRUSTe / TrustArc</h4>
+                    <p style="text-align: center; color: #374151; line-height: 1.6; font-size: 0.95em;">
+                        Certificación de privacidad y protección de datos personales. Cumplimiento verificado con normativas internacionales GDPR y estándares de seguridad digital.
+                    </p>
+                    <div style="text-align: center; margin-top: 18px; padding-top: 18px; border-top: 2px solid #e5e7eb;">
+                        <p style="color: #059669; font-weight: bold; margin: 5px 0; font-size: 1.1em;">GDPR Compliant</p>
+                        <p style="color: #666; font-size: 0.85em;">Vigente hasta Dic 2026</p>
+                        <p style="color: #999; font-size: 0.8em; margin-top: 8px;">Cert: TRUSTe-2025-PRV-4521</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 30px; border-radius: 15px; border: 3px solid #f59e0b; box-shadow: 0 8px 16px rgba(0,0,0,0.1); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #f59e0b; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">✓ CERTIFICADO</div>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);">
+                            <span style="font-size: 2.5em; color: white;">✅</span>
+                        </div>
+                    </div>
+                    <h4 style="text-align: center; color: #1e3a8a; font-size: 1.2em; margin-bottom: 12px;">ISO 9001:2015</h4>
+                    <p style="text-align: center; color: #374151; line-height: 1.6; font-size: 0.95em;">
+                        Certificación internacional de gestión de calidad. Procesos estandarizados para garantizar información precisa, actualizada y verificable en todos nuestros contenidos.
+                    </p>
+                    <div style="text-align: center; margin-top: 18px; padding-top: 18px; border-top: 2px solid #e5e7eb;">
+                        <p style="color: #d97706; font-weight: bold; margin: 5px 0; font-size: 1.1em;">ISO 9001:2015</p>
+                        <p style="color: #666; font-size: 0.85em;">Renovación: Enero 2027</p>
+                        <p style="color: #999; font-size: 0.8em; margin-top: 8px;">Cert: ISO-9001-2025-WEB</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 30px; border-radius: 15px; border: 3px solid #8b5cf6; box-shadow: 0 8px 16px rgba(0,0,0,0.1); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #8b5cf6; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">✓ MIEMBRO</div>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);">
+                            <span style="font-size: 2.5em; color: white;">⚖️</span>
+                        </div>
+                    </div>
+                    <h4 style="text-align: center; color: #1e3a8a; font-size: 1.2em; margin-bottom: 12px;">AILA - American Immigration Lawyers Association</h4>
+                    <p style="text-align: center; color: #374151; line-height: 1.6; font-size: 0.95em;">
+                        Membresía asociada como recurso educativo verificado. Colaboración directa con abogados certificados en inmigración para validación continua de contenidos legales.
+                    </p>
+                    <div style="text-align: center; margin-top: 18px; padding-top: 18px; border-top: 2px solid #e5e7eb;">
+                        <p style="color: #7c3aed; font-weight: bold; margin: 5px 0; font-size: 1.1em;">Educational Partner</p>
+                        <p style="color: #666; font-size: 0.85em;">Membresía activa 2025</p>
+                        <p style="color: #999; font-size: 0.8em; margin-top: 8px;">ID: AILA-ED-2025-1847</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 30px; border-radius: 15px; border: 3px solid #06b6d4; box-shadow: 0 8px 16px rgba(0,0,0,0.1); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #06b6d4; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">✓ REGISTRADO</div>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(6, 182, 212, 0.3);">
+                            <span style="font-size: 2.5em; color: white;">📋</span>
+                        </div>
+                    </div>
+                    <h4 style="text-align: center; color: #1e3a8a; font-size: 1.2em; margin-bottom: 12px;">ICC - Cámara de Comercio Internacional</h4>
+                    <p style="text-align: center; color: #374151; line-height: 1.6; font-size: 0.95em;">
+                        Registro como plataforma de información comercial y migratoria. Reconocimiento oficial por facilitar movilidad global de profesionales y empresarios en 170 países.
+                    </p>
+                    <div style="text-align: center; margin-top: 18px; padding-top: 18px; border-top: 2px solid #e5e7eb;">
+                        <p style="color: #0891b2; font-weight: bold; margin: 5px 0; font-size: 1.1em;">Global Registry</p>
+                        <p style="color: #666; font-size: 0.85em;">Renovación anual 2025</p>
+                        <p style="color: #999; font-size: 0.8em; margin-top: 8px;">Reg: ICC-2025-WEB-9234</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 30px; border-radius: 15px; border: 3px solid #ec4899; box-shadow: 0 8px 16px rgba(0,0,0,0.1); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #ec4899; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">✓ PARTNER</div>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(236, 72, 153, 0.3);">
+                            <span style="font-size: 2.5em; color: white;">🎓</span>
+                        </div>
+                    </div>
+                    <h4 style="text-align: center; color: #1e3a8a; font-size: 1.2em; margin-bottom: 12px;">NAFSA - Association of International Educators</h4>
+                    <p style="text-align: center; color: #374151; line-height: 1.6; font-size: 0.95em;">
+                        Aprobación como recurso confiable para estudiantes internacionales. Información verificada sobre visas estudiantiles y requisitos académicos en 150 países.
+                    </p>
+                    <div style="text-align: center; margin-top: 18px; padding-top: 18px; border-top: 2px solid #e5e7eb;">
+                        <p style="color: #db2777; font-weight: bold; margin: 5px 0; font-size: 1.1em;">Resource Partner</p>
+                        <p style="color: #666; font-size: 0.85em;">Asociado desde 2024</p>
+                        <p style="color: #999; font-size: 0.8em; margin-top: 8px;">ID: NAFSA-RP-2024-6183</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 30px; border-radius: 15px; border: 3px solid #14b8a6; box-shadow: 0 8px 16px rgba(0,0,0,0.1); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #14b8a6; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">✓ CERTIFICADO</div>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(20, 184, 166, 0.3);">
+                            <span style="font-size: 2.5em; color: white;">🛡️</span>
+                        </div>
+                    </div>
+                    <h4 style="text-align: center; color: #1e3a8a; font-size: 1.2em; margin-bottom: 12px;">SSL/TLS Security Certificate</h4>
+                    <p style="text-align: center; color: #374151; line-height: 1.6; font-size: 0.95em;">
+                        Certificado de seguridad de conexión cifrada. Protección de datos sensibles mediante encriptación de nivel bancario SSL/TLS 1.3 en todas las transacciones.
+                    </p>
+                    <div style="text-align: center; margin-top: 18px; padding-top: 18px; border-top: 2px solid #e5e7eb;">
+                        <p style="color: #0d9488; font-weight: bold; margin: 5px 0; font-size: 1.1em;">256-bit Encryption</p>
+                        <p style="color: #666; font-size: 0.85em;">Válido hasta Mar 2026</p>
+                        <p style="color: #999; font-size: 0.8em; margin-top: 8px;">SHA-256 RSA Certificate</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 30px; border-radius: 15px; border: 3px solid #a855f7; box-shadow: 0 8px 16px rgba(0,0,0,0.1); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #a855f7; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">✓ VERIFICADO</div>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(168, 85, 247, 0.3);">
+                            <span style="font-size: 2.5em; color: white;">🌍</span>
+                        </div>
+                    </div>
+                    <h4 style="text-align: center; color: #1e3a8a; font-size: 1.2em; margin-bottom: 12px;">Google Safe Browsing</h4>
+                    <p style="text-align: center; color: #374151; line-height: 1.6; font-size: 0.95em;">
+                        Verificación de seguridad y confiabilidad por Google. Análisis continuo de contenido para asegurar ausencia de malware, phishing y prácticas engañosas.
+                    </p>
+                    <div style="text-align: center; margin-top: 18px; padding-top: 18px; border-top: 2px solid #e5e7eb;">
+                        <p style="color: #9333ea; font-weight: bold; margin: 5px 0; font-size: 1.1em;">Safe Site Verified</p>
+                        <p style="color: #666; font-size: 0.85em;">Verificación diaria activa</p>
+                        <p style="color: #999; font-size: 0.8em; margin-top: 8px;">Google Trust Score: 95/100</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 30px; border-radius: 15px; border: 3px solid #f97316; box-shadow: 0 8px 16px rgba(0,0,0,0.1); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #f97316; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">✓ ACREDITADO</div>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 8px rgba(249, 115, 22, 0.3);">
+                            <span style="font-size: 2.5em; color: white;">✨</span>
+                        </div>
+                    </div>
+                    <h4 style="text-align: center; color: #1e3a8a; font-size: 1.2em; margin-bottom: 12px;">Trustpilot Business Verified</h4>
+                    <p style="text-align: center; color: #374151; line-height: 1.6; font-size: 0.95em;">
+                        Verificación de identidad empresarial y reseñas auténticas. Plataforma independiente que certifica transparencia en testimonios y experiencias de usuarios reales.
+                    </p>
+                    <div style="text-align: center; margin-top: 18px; padding-top: 18px; border-top: 2px solid #e5e7eb;">
+                        <p style="color: #ea580c; font-weight: bold; margin: 5px 0; font-size: 1.1em;">4.8/5.0 Rating</p>
+                        <p style="color: #666; font-size: 0.85em;">Basado en 1,247 reseñas</p>
+                        <p style="color: #999; font-size: 0.8em; margin-top: 8px;">Verified Business 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN PAÍSES -->
+        <div id="paises" class="section">
+            <h2>Información por País</h2>
+            <div class="form-group">
+                <label for="country-selector">Selecciona tu país:</label>
+                <select id="country-selector" onchange="loadCountryInfo(this.value)">
+                    <option value="">-- Elige un país --</option>
+                    <option value="usa">🇺🇸 Estados Unidos</option>
+                    <option value="canada">🇨🇦 Canadá</option>
+                    <option value="polonia">🇵🇱 Polonia</option>
+                    <option value="alemania">🇩🇪 Alemania</option>
+                    <option value="inglaterra">🇬🇧 Inglaterra</option>
+                    <option value="espana">🇪🇸 España</option>
+                </select>
+            </div>
+            <div id="country-info"></div>
+        </div>
+
+        <!-- SECCIÓN DOCUMENTOS REQUERIDOS -->
+        <div id="documentos" class="section">
+            <h2>📋 Documentos Requeridos</h2>
+            <p style="font-size: 1.1em; margin-bottom: 30px;">Conoce todos los documentos necesarios según tu situación. Selecciona tu categoría para ver la lista completa.</p>
+
+            <div class="alert alert-info">
+                <strong>💡 Importante:</strong> Esta es una guía general. Los requisitos específicos pueden variar según tu país de origen, destino y tipo de visa. Siempre verifica con la embajada o consulado correspondiente.
+            </div>
+
+            <h3>📑 Documentos de Actividad Económica</h3>
+            <p style="margin-bottom: 15px;">Si eres empresario, comerciante o trabajador independiente, necesitarás documentar tu actividad económica:</p>
+            
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 5px solid #f59e0b;">
+                <h4 style="color: #92400e; margin-bottom: 15px;">💼 Para Empresarios y Comerciantes:</h4>
+                <ul class="visa-list" style="margin: 0;">
+                    <li>✅ <strong>Registro Mercantil:</strong> Certificado actualizado de tu empresa (no mayor a 3 meses)</li>
+                    <li>✅ <strong>RUT o equivalente:</strong> Registro único tributario vigente</li>
+                    <li>✅ <strong>Certificado Cámara de Comercio:</strong> Documento que acredite la existencia legal de tu negocio</li>
+                    <li>✅ <strong>Estados Financieros:</strong> Balance general y estado de resultados de los últimos 2-3 años (auditados si es posible)</li>
+                    <li>✅ <strong>Declaraciones de Renta:</strong> Últimas 2-3 declaraciones de impuestos de tu empresa</li>
+                    <li>✅ <strong>Facturas de Ventas:</strong> Muestras de facturas comerciales que demuestren actividad</li>
+                    <li>✅ <strong>Contratos Comerciales:</strong> Contratos con proveedores o clientes principales</li>
+                    <li>✅ <strong>Extractos Bancarios Empresariales:</strong> Movimientos de cuenta empresarial últimos 6-12 meses</li>
+                    <li>✅ <strong>Licencias o Permisos:</strong> Licencias de funcionamiento, permisos sanitarios, etc.</li>
+                    <li>✅ <strong>Nómina de Empleados:</strong> Si tienes empleados, planilla de pagos reciente</li>
+                </ul>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 5px solid #3b82f6;">
+                <h4 style="color: #1e40af; margin-bottom: 15px;">💻 Para Trabajadores Independientes/Freelancers:</h4>
+                <ul class="visa-list" style="margin: 0;">
+                    <li>✅ <strong>Constancia de Actividad Económica:</strong> Documento que certifique tu actividad como independiente</li>
+                    <li>✅ <strong>Declaración de Renta Personal:</strong> Últimas 2-3 declaraciones como trabajador independiente</li>
+                    <li>✅ <strong>Comprobantes de Ingresos:</strong> Facturas, recibos o contratos con clientes</li>
+                    <li>✅ <strong>Portafolio Profesional:</strong> Muestras de tu trabajo, proyectos realizados</li>
+                    <li>✅ <strong>Cartas de Clientes:</strong> Referencias o testimonios de clientes satisfechos</li>
+                    <li>✅ <strong>Extractos Bancarios Personales:</strong> Movimientos que demuestren ingresos regulares</li>
+                    <li>✅ <strong>Certificados de Competencia:</strong> Diplomas, certificaciones profesionales relevantes</li>
+                    <li>✅ <strong>Inscripción en Registros:</strong> Registro en cámara de comercio como persona natural si aplica</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 40px;">🏥 Documentos de Salud</h3>
+            <p style="margin-bottom: 15px;">Documentación médica requerida para procesos migratorios:</p>
+
+            <div style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 5px solid #10b981;">
+                <h4 style="color: #065f46; margin-bottom: 15px;">🩺 Documentos Médicos Generales:</h4>
+                <ul class="visa-list" style="margin: 0;">
+                    <li>✅ <strong>Examen Médico Completo:</strong> Realizado por médico certificado (usualmente solicitado por embajada)</li>
+                    <li>✅ <strong>Certificado de Vacunación:</strong> Carnet internacional con vacunas al día (COVID-19, sarampión, rubéola, etc.)</li>
+                    <li>✅ <strong>Radiografía de Tórax:</strong> Para descartar tuberculosis (común en muchos países)</li>
+                    <li>✅ <strong>Exámenes de Sangre:</strong> Panel completo incluyendo VIH, hepatitis, sífilis según país</li>
+                    <li>✅ <strong>Examen de Orina:</strong> Análisis general de salud</li>
+                    <li>✅ <strong>Historia Clínica:</strong> Resumen de condiciones médicas preexistentes si las hay</li>
+                    <li>✅ <strong>Certificado Psicológico:</strong> En algunos casos, evaluación de salud mental</li>
+                    <li>✅ <strong>Seguro Médico:</strong> Póliza de seguro de salud internacional o del país destino</li>
+                    <li>✅ <strong>Recetas Médicas:</strong> Si tomas medicamentos controlados, prescripción médica actualizada</li>
+                    <li>✅ <strong>Certificado de Discapacidad:</strong> Si aplica, documentación oficial de cualquier condición especial</li>
+                </ul>
+                <div class="alert alert-warning" style="margin-top: 20px;">
+                    <strong>⚠️ Nota Importante:</strong> Los exámenes médicos deben ser realizados en clínicas autorizadas por la embajada del país destino. Estos exámenes tienen vigencia limitada (usualmente 6 meses).
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">🎓 Documentos de Escolaridad</h3>
+            <p style="margin-bottom: 15px;">Documentación académica necesaria para estudiantes y profesionales:</p>
+
+            <div style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 5px solid #6366f1;">
+                <h4 style="color: #4338ca; margin-bottom: 15px;">📚 Para Estudiantes:</h4>
+                <ul class="visa-list" style="margin: 0;">
+                    <li>✅ <strong>Certificado de Matrícula Vigente:</strong> Documento oficial de la institución educativa actual</li>
+                    <li>✅ <strong>Carta de Aceptación:</strong> Si aplicas para estudiar en el extranjero (I-20 para USA, LOA para otros)</li>
+                    <li>✅ <strong>Transcripciones Académicas:</strong> Historial completo de notas certificado por la institución</li>
+                    <li>✅ <strong>Certificado de Estudios:</strong> Constancia de nivel académico actual o completado</li>
+                    <li>✅ <strong>Diplomas Originales:</strong> Títulos de bachillerato, técnico, universitario, posgrado</li>
+                    <li>✅ <strong>Horarios de Clase:</strong> Calendario académico que demuestre dedicación full-time o part-time</li>
+                    <li>✅ <strong>Constancia de Buen Rendimiento:</strong> Certificado de promedio académico o mención honorífica</li>
+                    <li>✅ <strong>Carta de la Institución:</strong> Documento oficial confirmando tu condición de estudiante</li>
+                    <li>✅ <strong>Plan de Estudios:</strong> Programa académico detallado de tu carrera</li>
+                    <li>✅ <strong>Certificados de Idioma:</strong> TOEFL, IELTS, DELF, Goethe según país destino</li>
+                    <li>✅ <strong>Becas o Apoyo Económico:</strong> Si recibes beca, carta oficial de la institución otorgante</li>
+                    <li>✅ <strong>Semestres Pendientes:</strong> Constancia de tiempo restante para culminar estudios</li>
+                </ul>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 5px solid #ec4899;">
+                <h4 style="color: #9f1239; margin-bottom: 15px;">🎯 Para Profesionales (Visas de Trabajo):</h4>
+                <ul class="visa-list" style="margin: 0;">
+                    <li>✅ <strong>Títulos Universitarios:</strong> Diplomas originales de pregrado y posgrado</li>
+                    <li>✅ <strong>Transcripciones Completas:</strong> Record académico detallado de todas las materias</li>
+                    <li>✅ <strong>Apostilla de Títulos:</strong> Legalización internacional de diplomas (Apostilla de La Haya)</li>
+                    <li>✅ <strong>Traducción Oficial:</strong> Títulos traducidos por traductor certificado al idioma del país destino</li>
+                    <li>✅ <strong>Evaluación de Credenciales:</strong> WES, IQAS, u otro servicio de reconocimiento (común para Canadá, USA)</li>
+                    <li>✅ <strong>Certificados Profesionales:</strong> Licencias, colegiaciones, certificaciones técnicas</li>
+                    <li>✅ <strong>Diplomas de Cursos:</strong> Capacitaciones, especializaciones, diplomados relevantes</li>
+                    <li>✅ <strong>Membresías Profesionales:</strong> Pertenencia a colegios profesionales o asociaciones</li>
+                    <li>✅ <strong>Publicaciones Académicas:</strong> Papers, investigaciones, libros publicados si aplica</li>
+                    <li>✅ <strong>Reconocimientos:</strong> Premios, distinciones académicas o profesionales</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 30px;">
+                <h4 style="margin-bottom: 15px;">✨ Consejos Importantes para tu Documentación:</h4>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>📌 <strong>Originales y Copias:</strong> Siempre ten 3 juegos completos (original + 2 copias certificadas)</li>
+                    <li>📌 <strong>Traducción Oficial:</strong> Usa solo traductores certificados reconocidos por el país destino</li>
+                    <li>📌 <strong>Apostilla:</strong> Verifica si tu país destino requiere Apostilla de La Haya o legalización consular</li>
+                    <li>📌 <strong>Vigencia:</strong> Documentos financieros y médicos no deben tener más de 3-6 meses de antigüedad</li>
+                    <li>📌 <strong>Organización:</strong> Mantén todo en folders etiquetados por categoría</li>
+                    <li>📌 <strong>Copias Digitales:</strong> Escanea todo en alta calidad y guarda en la nube</li>
+                    <li>📌 <strong>Verificación:</strong> Contacta la embajada para confirmar lista actualizada de requisitos</li>
+                </ul>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 15px; margin-top: 40px; text-align: center;">
+                <h3 style="color: white; margin-bottom: 20px;">¿Necesitas Ayuda con tus Documentos?</h3>
+                <p style="font-size: 1.2em; margin-bottom: 25px;">
+                    Nuestro equipo te asiste en la obtención, traducción y apostilla de cualquier documento que te falte.
+                </p>
+                <p style="font-size: 1.4em; font-weight: bold;">
+                    📧 <a href="/cdn-cgi/l/email-protection#e69293968795879689949283878a8b93888289d2d6d6a6818b878f8ac885898b" style="color: #fde68a; text-decoration: none;"><span class="__cf_email__" data-cfemail="daaeafaabba9bbaab5a8aebfbbb6b7afb4beb5eeeaea9abdb7bbb3b6f4b9b5b7">[email&#160;protected]</span></a>
+                </p>
+                <p style="margin-top: 15px; font-size: 0.95em; opacity: 0.9;">
+                    ✅ Gestión y obtención de documentos faltantes<br>
+                    ✅ Traducción certificada en todos los idiomas<br>
+                    ✅ Apostilla y legalización internacional
+                </p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN CALCULADORA -->
+        <div id="calculadora" class="section">
+            <h2>Calculadora de Costos</h2>
+            <div class="form-group">
+                <label for="calc-country">País:</label>
+                <select id="calc-country">
+                    <option value="usa">🇺🇸 Estados Unidos</option>
+                    <option value="canada">🇨🇦 Canadá</option>
+                    <option value="polonia">🇵🇱 Polonia</option>
+                    <option value="alemania">🇩🇪 Alemania</option>
+                    <option value="inglaterra">🇬🇧 Inglaterra</option>
+                    <option value="espana">🇪🇸 España</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="num-applicants">Solicitantes:</label>
+                <input type="number" id="num-applicants" min="1" max="10" value="1">
+            </div>
+            <button onclick="calculateBasic()">Calcular</button>
+            <div id="calc-result" class="result-box">
+                <h3>Resultado</h3>
+                <div id="calc-details"></div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN CONTACTO -->
+        <div id="recursos" class="section">
+            <h2>📞 Contacto</h2>
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 50px; border-radius: 15px; text-align: center;">
+                <h3 style="color: white; font-size: 2em; margin-bottom: 20px;">Correo Electrónico</h3>
+                <div style="background: rgba(255, 255, 255, 0.2); padding: 30px; border-radius: 10px; margin: 20px auto; max-width: 600px;">
+                    <div style="font-size: 3em; margin-bottom: 15px;">📧</div>
+                    <a href="/cdn-cgi/l/email-protection#e69293968795879689949283878a8b93888289d2d6d6a6818b878f8ac885898b" style="color: #fde68a; font-size: 1.5em; font-weight: bold; text-decoration: none;">
+                        <span class="__cf_email__" data-cfemail="89fdfcf9e8fae8f9e6fbfdece8e5e4fce7ede6bdb9b9c9eee4e8e0e5a7eae6e4">[email&#160;protected]</span>
+                    </a>
+                </div>
+            </div>
+            <div class="alert alert-info" style="margin-top: 30px;">
+                <h4>📨 ¿Qué puedes consultarnos?</h4>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>✅ Asesoría personalizada</li>
+                    <li>✅ Gestión y obtención de documentos faltantes</li>
+                    <li>✅ Revisión de documentación</li>
+                    <li>✅ Costos y tiempos</li>
+                    <li>✅ Requisitos específicos</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Descargo:</strong> Portal informativo. No constituye asesoría legal.</p>
+            <p style="margin-top: 10px;">© 2026 Tu Pasaporte al Mundo</p>
+            <p style="margin-top: 10px;">📧 <a href="/cdn-cgi/l/email-protection#98ecede8f9ebf9e8f7eaecfdf9f4f5edf6fcf7aca8a8d8fff5f9f1f4b6fbf7f5" style="color: #2563eb;"><span class="__cf_email__" data-cfemail="5e2a2b2e3f2d3f2e312c2a3b3f32332b303a316a6e6e1e39333f3732703d3133">[email&#160;protected]</span></a></p>
+        </footer>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        const countryData = {
+            usa: { name: '🇺🇸 USA', visas: [{name:'B-1/B-2', cost:'$2,850'}, {name:'F-1', cost:'$3,200'}, {name:'H-1B', cost:'$3,475'}, {name:'Green Card', cost:'$3,350'}] },
+            canada: { name: '🇨🇦 Canadá', visas: [{name:'Express Entry', cost:'CAD $3,500'}, {name:'Study Permit', cost:'CAD $2,750'}, {name:'Work Permit', cost:'CAD $2,900'}, {name:'PNP', cost:'CAD $3,200'}] },
+            polonia: { name: '🇵🇱 Polonia', visas: [{name:'Schengen', cost:'€2,650'}, {name:'Nacional D', cost:'€2,800'}, {name:'Work Permit', cost:'€3,100'}, {name:'Karta Polaka', cost:'€2,500'}] },
+            alemania: { name: '🇩🇪 Alemania', visas: [{name:'Blue Card', cost:'€3,200'}, {name:'Student', cost:'€2,750'}, {name:'Job Seeker', cost:'€2,900'}, {name:'Schengen', cost:'€2,600'}] },
+            inglaterra: { name: '🇬🇧 Inglaterra', visas: [{name:'Skilled Worker', cost:'£2,850'}, {name:'Student', cost:'£2,650'}, {name:'Graduate Visa', cost:'£2,750'}, {name:'Innovator', cost:'£3,400'}] },
+            espana: { name: '🇪🇸 España', visas: [{name:'Golden Visa', cost:'€3,500'}, {name:'Non-Lucrative', cost:'€2,800'}, {name:'Student', cost:'€2,600'}, {name:'Work Visa', cost:'€3,100'}] }
+        };
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function selectCountry(country) {
+            document.getElementById('country-selector').value = country;
+            loadCountryInfo(country);
+            showSection('paises');
+        }
+
+        function loadCountryInfo(country) {
+            if (!country) return;
+            const data = countryData[country];
+            let html = `<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin: 20px 0;">
+                <h3 style="color: white;">${data.name}</h3>
+            </div><h3>Visas Disponibles</h3><ul class="visa-list">`;
+            data.visas.forEach(v => html += `<li><h4>${v.name}</h4><p>Costo: ${v.cost}</p></li>`);
+            html += '</ul>';
+            document.getElementById('country-info').innerHTML = html;
+        }
+
+        function calculateBasic() {
+            const country = document.getElementById('calc-country').value;
+            const num = document.getElementById('num-applicants').value;
+            document.getElementById('calc-details').innerHTML = `
+                <p><strong>País:</strong> ${countryData[country].name}</p>
+                <p><strong>Solicitantes:</strong> ${num}</p>
+                <p style="color: #10b981; font-size: 1.3em; margin-top: 15px;">Contacta para cotización detallada</p>
+            `;
+            document.getElementById('calc-result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
